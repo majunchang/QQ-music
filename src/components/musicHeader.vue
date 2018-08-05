@@ -1,10 +1,9 @@
 <template>
-  <div>
+  <div class="header-box">
         <div class="header">
               <img src="../assets/logo.png" alt="" class="qqmusic_logo">
         <div class="tab">
              <span 
-                
                  v-for="(item,index) in tabArr"
                  :key='item'
                  @click='routerJump(index)'
@@ -37,6 +36,9 @@ export default {
       chooseItem: ''
     }
   },
+  mounted () {
+    this.routerJump(0)
+  },
   methods: {
     routerJump (index) {
       this.chooseItem = this.tabArr[index]
@@ -53,6 +55,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.header-box {
+    width: 80%;
+    margin-left: 10%;
+}
 .header{
     margin: 0;
     padding: 0;
@@ -85,7 +91,7 @@ export default {
     width: 98px;
     text-align: center;
     cursor: pointer;
-    
+    font-size: 18px;
 }
 .tab-span:hover{
     color: #31c27c;

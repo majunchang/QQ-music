@@ -33,10 +33,10 @@ body,html{
   margin: 0;
   padding: 0;
 }
-#app{
+/* #app{
   width: 80%;
   margin-left: 10%;
-}
+} */
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -44,5 +44,6 @@ body,html{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  min-width: 1250px;
 }
 </style>
