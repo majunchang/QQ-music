@@ -37,7 +37,9 @@ export default {
     }
   },
   mounted () {
-    this.routerJump(0)
+    this.routerJump(routerArr.findIndex((item) => {
+      return item === this.$route.path.slice(1)
+    }))
   },
   methods: {
     routerJump (index) {

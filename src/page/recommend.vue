@@ -8,8 +8,8 @@
                 <Carousel loop :value="0" dots='outside' :radius-dot='true' height='auto' class="Carousel-recommend">
                     <CarouselItem v-for="(item,index) in recommend" :key="index">
                         <div class="img-box">
-                            <img v-lazy="item.picUrl" alt="">
-                            <img v-lazy="item.sPicUrl" alt="">
+                            <img :src="item.picUrl" alt="">
+                            <img :src="item.sPicUrl" alt="">
                         </div>
                     </CarouselItem>
                 </Carousel>

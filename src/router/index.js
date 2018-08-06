@@ -5,13 +5,15 @@ import recommend from '@/page/recommend'
 import singer from '@/page/singer'
 import search from '@/page/search'
 import rank from '@/page/rank'
+//  歌手详情页
+import singerDetail from '@/page/singerDetail'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/recommend',
       name: 'recommend',
       component: recommend
     },
@@ -29,6 +31,10 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: search
+    }, {
+      path: '/singerDetail',
+      name: 'singerDetail',
+      component: singerDetail
     }
   ]
 })
