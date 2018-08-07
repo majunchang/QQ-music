@@ -7,13 +7,15 @@ import search from '@/page/search'
 import rank from '@/page/rank'
 //  歌手详情页
 import singerDetail from '@/page/singerDetail'
+//  播放音乐的页面
+import player from '@/page/player'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/recommend',
+      path: '/',
       name: 'recommend',
       component: recommend
     },
@@ -35,6 +37,11 @@ export default new Router({
       path: '/singerDetail',
       name: 'singerDetail',
       component: singerDetail
+    },
+    {
+      path: '/player',
+      name: 'player',
+      component: player
     }
   ]
 })

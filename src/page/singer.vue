@@ -45,7 +45,7 @@
             </div>
             <div class="singerList">
                 <div class="singleSinger" v-for="(item,index) in singerInfo.items" :key='index'>
-                    <div class="singerImgBox" @click='singerDetail(item.id)'>
+                    <div class="singerImgBox" @click='singerDetail(item)'>
                         <div class="hidemask">
                             <img :src="item.avatar" alt="">
                         </div>
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { getSingerList, getSingerDetail } from '../api/singer.js'
+import { getSingerList } from '../api/singer.js'
 
 class Singer {
   constructor ({ id, name }) {
@@ -96,10 +96,12 @@ export default {
     this.getSingerList()
   },
   methods: {
-    singerDetail (singerId) {
-      getSingerDetail(singerId).then((res) => {
-        console.log('歌手详情')
-        console.log(res)
+    singerDetail (singer) {
+      // 跳转到歌手闲详情页面
+      this.$root.selectSinger = singer
+      this.$router.push({
+        name: 'singerDetail',
+        path: '/singerDetail'
       })
     },
     getSingerList () {

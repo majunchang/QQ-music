@@ -8,6 +8,7 @@ import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 // 引入vue懒加载插件
 import VuelazyLoader from 'vue-lazyload'
+import '../font_akrwga8ty8n/iconfont.css'
 
 Vue.use(iView)
 
@@ -20,6 +21,11 @@ Vue.use(VuelazyLoader, {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  data: {
+    selectSinger: {},
+    selectSong: {},
+    palyedSongArr: []
+  },
   router,
   components: { App },
   template: '<App/>'
