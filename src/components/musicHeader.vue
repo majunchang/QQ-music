@@ -23,7 +23,7 @@
 </template>
 
 <script>
-const routerArr = ['recommend', 'singer', 'rank', 'search', 'userCenter']
+const routerArr = ['recommend', 'singer', 'rank', 'search', 'userCenter', 'player']
 export default {
   name: 'musicHeader',
   data () {
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     routerJump (index) {
-      index = index === -1 ? 0 : index
+      index = index === -1 ? 5 : index
       this.chooseItem = this.tabArr[index]
       this.$router.push({
         name: routerArr[index],

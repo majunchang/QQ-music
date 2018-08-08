@@ -38,16 +38,17 @@
                         <i class="iconfont icon-pause"></i>
                         <i class="iconfont icon-293-next2"></i>
                     </div>
-                    <div class="play-container" @mousedown="touchStart" @mousemove="touchMove" @mouseup="touchEnd" >
- <div class="play-music">
+    
+                    <div class="play-music">
                         <div class="song-time">
                             00:00 / 00:00
                         </div>
                         <div class="progress-inner" ref='progressInner'></div>
-                        <div class="progress-dot" ref='progressDot' ></div>
+                        <div class="play-container" ref='progressDot'  @mousedown.prevent="touchStart" @mousemove.prevent="touchMove"   @mouseup.prevent="touchEnd" @mouseleave.prevent='touchEnd' >
+                            <div class="progress-dot" ></div>
+                        </div>
                     </div>
-                    </div>
-                   
+    
     
     
     
@@ -89,9 +90,10 @@ export default {
       const touch = e
       console.log('触发了mousedown')
       console.log(touch)
-      const originPlace = parseInt(this.$refs.progressDot.offsetLeft) - parseInt(this.$refs.progressInner.offsetLeft)
-      this.touch.startX = touch.clientX + originPlace
+
+      this.touch.startX = touch.clientX
       this.touch.startY = touch.clientY
+      this.touch.left = this.$refs.progressInner.clientWidth
       this.touch.inial = true
     },
     touchMove (e) {
@@ -102,18 +104,17 @@ export default {
       const touch = e
       console.log(e)
       let deltaX = touch.clientX - this.touch.startX
-
+      let moveX = Math.max(0, deltaX + this.touch.left)
       // const deltaY = touch.clientY - this.touch.startYL
       console.log('打印差值')
-      console.log(this.$refs.progressDot.offsetLeft)
-      console.log(this.$refs.progressInner.offsetLeft)
-      // console.log(originPlace)
+
       console.log(deltaX)
+      console.log(moveX)
       // deltaX = deltaX + originPlace
-      this.$refs.progressInner.style['width'] = deltaX + 'px'
-      this.$refs.progressInner.style['transitionDuration'] = 0
-      this.$refs.progressDot.style['left'] = deltaX + 'px'
-      this.$refs.progressDot.style['transitionDuration'] = 0
+      this.$refs.progressInner.style['width'] = moveX + 'px'
+      // this.$refs.progressInner.style['transitionDuration'] = 0
+      this.$refs.progressDot.style['left'] = moveX + 'px'
+      // this.$refs.progressDot.style['transitionDuration'] = 0
     },
     touchEnd (e) {
       console.log('触发了mouseup')
@@ -121,10 +122,10 @@ export default {
       const touch = e
       this.touch.inial = false
       // const deltaX = touch.clientX - this.touch.startX
-      // const deltaY = touch.clientY - this.touch.startY
-      // console.log(deltaX)
+      // // const deltaY = touch.clientY - this.touch.startY
+      // // console.log(deltaX)
       // this.$refs.progressInner.style['width'] = deltaX + 'px'
-      // this.$refs.progressInner.style['transitionDuration'] = `${time}ms`
+      // // this.$refs.progressInner.style['transitionDuration'] = `${time}ms`
       // this.$refs.progressDot.style['left'] = deltaX + 'px'
       // this.$refs.progressDot.style['transitionDuration'] = `${time}ms`
     }
@@ -268,13 +269,13 @@ export default {
 
 .progress-dot {
     position: absolute;
-    width: 13px;
     height: 13px;
+    width: 13px;
     background: white;
     border-radius: 8px;
     left: 0px;
-    top: -4px;
-    cursor: pointer;
+    top:0px;
+    
 }
 
 .other-part {
@@ -296,8 +297,14 @@ i.iconfont {
     font-size: 28px;
     cursor: pointer;
 }
+
 .play-container {
-    flex: 1;
-    margin-left: 30px;
+    
+    width: 48px;
+    height: 13px;
+    background-color: red;
+    position: relative;
+    margin-top: -8px;
+    cursor: pointer;
 }
 </style>
