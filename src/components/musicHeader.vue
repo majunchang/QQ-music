@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     routerJump (index) {
+      index = index === -1 ? 0 : index
       this.chooseItem = this.tabArr[index]
       this.$router.push({
         name: routerArr[index],
