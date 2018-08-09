@@ -9,7 +9,7 @@
                     <CarouselItem v-for="(item,index) in recommend" :key="index">
                         <div class="img-box">
                             <img :src="item.picUrl" alt="">
-                            <img :src="item.sPicUrl" alt="">
+                            <img :src="item.picUrl" alt="">
                         </div>
                     </CarouselItem>
                 </Carousel>
@@ -55,10 +55,7 @@ export default {
   },
   mounted () {
     getRecommend().then(res => {
-      this.recommend = res.data.slider.slice(0, 4).map((item, index) => {
-        item.sPicUrl = res.data.slider[index + 1].picUrl
-        return item
-      })
+      this.recommend = res.data.slider
     })
     this.getcateList()
   },
@@ -113,7 +110,7 @@ h1 {
 
 .img-box img {
     width: 36%;
-    height: 280px;
+    height: 248px;
     margin-left: 10px;
     display: inline-block;
 }

@@ -1,6 +1,9 @@
 
+import {getLyric} from '../api/song'
+import {Base64} from 'js-base64'
+
 export default class Song {
-  constructor ({id, index, mid, singer, name, album, duration, image, url}) {
+  constructor ({id, index, mid, singer, name, album, duration, totalTime, image, url}) {
     this.id = id
     this.index = index
     this.mid = mid
@@ -10,6 +13,24 @@ export default class Song {
     this.duration = duration
     this.image = image
     this.url = url
+    this.totalTime = totalTime
+  }
+  getLyrics () {
+    if (this.lyric) {
+      return Promise.resolve(this.lyric)
+    }
+    return new Promise((resolve, reject) => {
+      getLyric(this.mid).then((res) => {
+        if (res.retcode === 0) {
+          console.log('获得了歌词')
+          console.log(res)
+          this.lyric = Base64.decode(res.lyric)
+          resolve(this.lyric)
+        } else {
+          reject('no lyrics')
+        }
+      })
+    })
   }
 }
 
@@ -23,6 +44,7 @@ export function createSong (musicData) {
     name: musicData.songname,
     album: musicData.albumname,
     duration: handleDuration(musicData.interval),
+    totalTime: musicData.interval,
     image: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${musicData.albummid}.jpg?max_age=2592000`,
     url: gteVkey(musicData.songmid)
   })

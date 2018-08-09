@@ -101,7 +101,21 @@ export default {
     },
     selectSong (item) {
       this.$root.selectSong = item
-      this.$root.palyedSongArr.unshift(item)
+      //  判断一下  songArr中 是否存在这个selectSong
+      let songArr = this.$root.palyedSongArr
+      let findRes = songArr.find((song) => {
+        return song.name === item.name
+      })
+      if (findRes) {
+        let findIndex = songArr.findIndex((song, index) => {
+          return song.name === item.name
+        })
+        songArr.splice(findIndex, 1)
+      }
+      songArr.unshift(item)
+      if (songArr.length > 8) {
+        songArr.pop()
+      }
       // 跳转到播放音乐页面
       this.$router.push({
         paht: '/player',
