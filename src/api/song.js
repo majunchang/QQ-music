@@ -2,7 +2,14 @@ import {commonParams} from '../config'
 import axios from 'axios'
 
 export function getLyric (mid) {
-  const url = '/api/lyric'
+  let href = window.location.href
+  let url
+  if (href.includes('localhost') || href.includes('127.0.0.1')) {
+    url = '/api/lyric'
+  } else {
+    url = 'http://127.0.0.1:3000/api/lyric'
+  }
+  console.log(url)
 
   const data = Object.assign({}, commonParams, {
     songmid: mid,

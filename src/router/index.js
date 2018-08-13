@@ -10,6 +10,8 @@ import singerDetail from '@/page/singerDetail'
 //  播放音乐的页面
 import player from '@/page/player'
 
+import rankDetail from '@/page/rankDetail'
+
 Vue.use(Router)
 
 export default new Router({
@@ -46,6 +48,11 @@ export default new Router({
       path: '/player',
       name: 'player',
       component: player
+    },
+    {
+      name: 'rankDetail',
+      path: '/rankDetail',
+      component: rankDetail
     }
   ]
 })

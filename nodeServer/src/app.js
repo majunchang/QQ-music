@@ -1,13 +1,24 @@
 import path from 'path'
 import express from 'express'
 import axios from 'axios'
+import {join} from 'path'
 
 const app = express()
 
 //  挂载静态路径
-// app.use(express.static(config.public_path))
+app.use(express.static(join(__dirname, '../../dist')))
 
 let router = express.Router()
+
+router.all('*', function (req, res, next) {
+  // res.header('Access-Control-Allow-Origin', '*')
+  console.log('进入了all  express解决跨域问题')
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Content-Length, Authorization, Accept,X-Requested-With')
+  res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
+  res.header('X-Powered-By', ' 3.2.1')
+  next()
+})
 
 //  做代理的分发和请求  分类歌单
 router.get('/getDiscList', function (req, res) {

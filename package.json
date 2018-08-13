@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "webpack-dev-server --host 0.0.0.0 --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "electron_dev": "electron build/electron.js",
+    "electron_build": "electron-packager ./dist/ --platform=darwin --arch=x64 --overwrite"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -38,6 +40,8 @@
     "chalk": "^2.0.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
+    "electron": "^2.0.7",
+    "electron-packager": "^12.1.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",

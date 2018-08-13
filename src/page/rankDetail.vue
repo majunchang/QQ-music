@@ -1,14 +1,14 @@
 <template>
     <div class="singerDetail-box">
-     
+      
         <div class="singerDetail">
             <div class="singerDetail-singerInfo">
                 <div class="sd-left">
                     <img :src="avatar" alt="">
                 </div>
                 <div class="sd-right">
-                    <h1>{{singerName}}</h1>
-                    <p class="brife">个人简介:&nbsp;.......</p>
+                    <h1>{{topListName}}</h1>
+                    <p class="brife">个人简介:&nbsp;......</p>
                     <p class='single'>单曲&nbsp;
                       <span class="totalSong">
                       {{totalSong}}
@@ -41,12 +41,11 @@
 </template>
 
 <script>
-import { getSingerDetail } from '../api/singer.js'
+import {getTopMUsicList} from '../api/rank.js'
 import { createSong } from '../utils/song.js'
 
 export default {
   name: 'HelloWorld',
-
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -54,42 +53,43 @@ export default {
       songs: [],
       bgImage: '',
       avatar: '',
-      singerName: '',
+      topListName: '',
       totalSong: '',
       pageSong: [],
-      pageNum: 10
+      pageNum: 10,
+      brief: ''
     }
   },
   created () {
-    if (!this.$root.selectSinger) {
+    if (!this.$root.rankSongId) {
       this.$router.back()
     } else {
-      this.singerId = this.$root.selectSinger.id
-      this.avatar = this.bgImage = this.$root.selectSinger.avatar
-      this.getSingerDetail(this.singerId)
+      let rankId = this.$root.rankSongId
+      this.getTopMUsicList(rankId)
     }
   },
   mounted () {
 
   },
   methods: {
-
-    getSingerDetail (singerId) {
-      getSingerDetail(singerId).then((res) => {
-        this.songs = this.normalizeSongs(res.data.list)
-        this.singerName = res.data.singer_name
-        this.totalSong = res.data.total
+    getTopMUsicList (rankId) {
+      getTopMUsicList(rankId).then((res) => {
+        console.log(res)
+        this.songs = this.normalizeSongs(res.songlist)
+        this.topListName = res.topinfo.ListName
+        this.totalSong = res.total_song_num
+        this.brief = res.topinfo.info
+        this.avatar = res.topinfo.pic
         this.pageSong = this.songs.slice(0, this.pageNum)
       })
     },
     normalizeSongs (list) {
       let ret = []
-      list.forEach((item) => {
+      list.forEach((musicData, index) => {
         // 对象的解构赋值 等同于 var musicData = item.musicData
-        let { musicData } = item
-        if (musicData.songid && musicData.albummid) {
-          musicData.index = item.index
-          ret.push(createSong(musicData))
+        if (musicData.data.songid && musicData.data.albummid) {
+          musicData.index = index
+          ret.push(createSong(musicData.data))
         }
       })
       return ret

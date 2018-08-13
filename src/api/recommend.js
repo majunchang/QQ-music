@@ -17,7 +17,15 @@ export function getRecommend () {
 //  分类歌单数据
 
 export function getDiscList () {
-  const url = '/api/getDiscList'
+  let href = window.location.href
+  let url
+  if (href.includes('localhost') || href.includes('127.0.0.1')) {
+    url = '/api/getDiscList'
+  } else {
+    url = 'http://127.0.0.1:3000/api/getDiscList'
+  }
+
+  console.log(url)
 
   // 需要拼接的数据
   const data = Object.assign({}, commonParams, {

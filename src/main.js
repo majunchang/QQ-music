@@ -24,7 +24,8 @@ new Vue({
   data: {
     selectSinger: {},
     selectSong: {},
-    palyedSongArr: []
+    palyedSongArr: [],
+    rankSongId: ''
   },
   router,
   components: { App },

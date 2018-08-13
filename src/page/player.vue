@@ -1,7 +1,9 @@
 <template>
     <div>
-        <h1>播放歌曲页面</h1>
+
+        
         <div class="player-container">
+             <ReturnBack @returnBackprop = 'returnBack'></ReturnBack>
             <div class="background">
                 <img :src="selectSong.image" alt="">
             </div>
@@ -88,6 +90,7 @@
 <script>
 //  引入歌词解析插件
 import LyricParser from 'lyric-parser'
+import ReturnBack from '../components/returnBack'
 
 export default {
   name: 'HelloWorld',
@@ -107,6 +110,9 @@ export default {
       currentLineNum: 0
     }
   },
+  components: {
+    ReturnBack
+  },
   computed: {
     miniIcon () {
       return this.playing ? 'icon-pause' : 'icon-play'
@@ -117,6 +123,7 @@ export default {
   },
   mounted () {
     this.selectSong = this.$root.selectSong
+    console.log('player的文件中  关于selectSong的东西', this.selectSong)
     this.palyedSongArr = this.$root.palyedSongArr
     this.playing = true
     const audio = this.$refs.audio
@@ -124,11 +131,11 @@ export default {
     this.$nextTick(() => {
       this.playing ? audio.play() : audio.pause()
     })
-    console.log(this.selectSong)
-
-    console.log(this.$root.selectSong)
   },
   methods: {
+    returnBack () {
+      this.$router.back()
+    },
     getLyric () {
       this.selectSong.getLyrics().then((lyric) => {
         if (this.selectSong.lyric !== lyric) {
@@ -143,11 +150,8 @@ export default {
     },
     handleLyric ({ lineNum, txt }) {
       this.currentLineNum = lineNum
-      console.log(lineNum)
-      console.log('@#$%^&*()*&^%$#')
       if (this.currentLineNum > 2) {
         let moveY = (this.currentLineNum - 2) * 30
-        console.log('huoqu了')
         if (this.$refs.lyricBox) {
           this.$refs.lyricBox.style['transform'] = `translateY(-${moveY}px)`
         }
@@ -175,12 +179,14 @@ export default {
     },
     touchEnd (e) {
       this.$refs.audio.play()
+      this.playing = true
       //  滑动结束的时候 改变音乐的播放进度 音乐继续播放
+      this.touch.inial = false
       this.$refs.audio.currentTime = this.progressPercent * this.selectSong.totalTime
     },
     touchLeave () {
-      this.$refs.audio.play()
       this.touch.inial = false
+      this.$refs.audio.play()
     },
     progressBarClick (e) {
       let moveX = e.clientX - this.$refs.progressBar.getBoundingClientRect().left
@@ -188,6 +194,7 @@ export default {
       let time = this.$refs.audio.currentTime = this.progressPercent * this.selectSong.totalTime
       if (this.currentLyric) {
         this.currentLyric.togglePlay()
+        this.playing = true
       }
       this.currentLyric.seek(time * 1000)
     },
@@ -197,6 +204,9 @@ export default {
       this.progressPercent = moveX / this.$refs.progressBar.clientWidth
     },
     selectNewSong (item, index) {
+      if (item.name === this.selectSong.name) {
+        return
+      }
       this.selectSong = item
       this.playIndex = index
       this.currentLyric.stop()
@@ -233,6 +243,10 @@ export default {
       this.next()
     },
     prev () {
+      if (this.palyedSongArr.length === 1) {
+        this.$Message.warning('当前列表仅有一条歌曲')
+        return
+      }
       //  首先求出 当前这首歌的索引  然后去上一个索引
       let currentIndex = this.palyedSongArr.findIndex((item, index) => {
         return item.name === this.selectSong.name
@@ -250,6 +264,10 @@ export default {
       })
     },
     next () {
+      if (this.palyedSongArr.length === 1) {
+        this.$Message.warning('当前列表仅有一条歌曲')
+        return
+      }
       let currentIndex = this.palyedSongArr.findIndex((item, index) => {
         return item.name === this.selectSong.name
       })
@@ -284,9 +302,11 @@ export default {
       }
       return time
     },
-    error () {
+    error (err) {
       this.songReady = true
+      console.log(err)
       console.log('歌曲报错了')
+      console.log(this.$refs.audio.error)
     }
   }
 }
