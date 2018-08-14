@@ -27,7 +27,7 @@ export default {
 <style scoped>
   .returnBack{
     display: inline-block;
-    color: white;
+    color: #31c27c;
     padding: 20px;
     font-size: 22px;
     position: absolute;

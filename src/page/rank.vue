@@ -56,7 +56,7 @@ export default {
 .rankbox {
     /* display: flex; */
     width: 80%;
-    overflow: scroll;
+    overflow: hidden;
     margin-left: 10%;
     text-align: center;
 }

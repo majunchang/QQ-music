@@ -30,7 +30,8 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       tabArr: [
-        '首页', '歌手', '排行榜', '搜索', '用户中心'
+        '首页', '歌手', '排行榜'
+        // '搜索', '用户中心'
       ],
       tabSpan: 'tab-span',
       chooseItem: ''

@@ -123,7 +123,6 @@ export default {
   },
   mounted () {
     this.selectSong = this.$root.selectSong
-    console.log('player的文件中  关于selectSong的东西', this.selectSong)
     this.palyedSongArr = this.$root.palyedSongArr
     this.playing = true
     const audio = this.$refs.audio
@@ -131,6 +130,13 @@ export default {
     this.$nextTick(() => {
       this.playing ? audio.play() : audio.pause()
     })
+    //  注册键盘监听事件  监听空格
+    document.onkeydown = (e) => {
+      let keyNum = window.event ? e.keyCode : e.which
+      if (keyNum === 32) {
+        this.togglePlaying()
+      }
+    }
   },
   methods: {
     returnBack () {
@@ -240,6 +246,18 @@ export default {
       }
     },
     end () {
+      if (this.palyedSongArr.length === 1) {
+        // 让歌曲暂停就好
+        this.playing = false
+        this.currentLyric.stop()
+        this.$refs.audio.load()
+        this.$nextTick(() => {
+          this.playing = true
+          this.getLyric()
+          this.$refs.audio.play()
+        })
+        return
+      }
       this.next()
     },
     prev () {
@@ -533,7 +551,6 @@ p.text {
     font-size: 14px;
     font-weight: 700;
     color: rgba(225,225,225,.8);
-    font-family: 宋体;
 }
 p.current{
     color: #31c27c

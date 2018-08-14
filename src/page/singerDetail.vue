@@ -2,6 +2,7 @@
     <div class="singerDetail-box">
      
         <div class="singerDetail">
+           <ReturnBack @returnBackprop = 'returnBack'></ReturnBack>
             <div class="singerDetail-singerInfo">
                 <div class="sd-left">
                     <img :src="avatar" alt="">
@@ -43,6 +44,7 @@
 <script>
 import { getSingerDetail } from '../api/singer.js'
 import { createSong } from '../utils/song.js'
+import ReturnBack from '../components/returnBack'
 
 export default {
   name: 'HelloWorld',
@@ -60,6 +62,9 @@ export default {
       pageNum: 10
     }
   },
+  components: {
+    ReturnBack
+  },
   created () {
     if (!this.$root.selectSinger) {
       this.$router.back()
@@ -73,7 +78,9 @@ export default {
 
   },
   methods: {
-
+    returnBack () {
+      this.$router.back()
+    },
     getSingerDetail (singerId) {
       getSingerDetail(singerId).then((res) => {
         this.songs = this.normalizeSongs(res.data.list)

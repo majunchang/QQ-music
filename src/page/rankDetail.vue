@@ -2,6 +2,7 @@
     <div class="singerDetail-box">
       
         <div class="singerDetail">
+            <ReturnBack @returnBackprop = 'returnBack'></ReturnBack>
             <div class="singerDetail-singerInfo">
                 <div class="sd-left">
                     <img :src="avatar" alt="">
@@ -43,6 +44,7 @@
 <script>
 import {getTopMUsicList} from '../api/rank.js'
 import { createSong } from '../utils/song.js'
+import ReturnBack from '../components/returnBack'
 
 export default {
   name: 'HelloWorld',
@@ -60,6 +62,9 @@ export default {
       brief: ''
     }
   },
+  components: {
+    ReturnBack
+  },
   created () {
     if (!this.$root.rankSongId) {
       this.$router.back()
@@ -72,6 +77,9 @@ export default {
 
   },
   methods: {
+    returnBack () {
+      this.$router.back()
+    },
     getTopMUsicList (rankId) {
       getTopMUsicList(rankId).then((res) => {
         console.log(res)
