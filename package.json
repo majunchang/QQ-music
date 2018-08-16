@@ -9,7 +9,7 @@
     "start": "npm run dev",
     "build": "node build/build.js",
     "electron_dev": "electron build/electron.js",
-    "electron_build": "electron-packager ./dist/ --platform=darwin --arch=x64 --overwrite"
+    "electron_build": "electron-packager ./dist/ --platform=darwin --arch=x64  --ignore=\"(dist|src|docs|.gitignore|LICENSE|README.md|webpack.config.js|node_modules)\"  --overwrite"
   },
   "dependencies": {
     "axios": "^0.18.0",
