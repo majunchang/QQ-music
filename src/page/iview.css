@@ -5,3 +5,19 @@ label.ivu-checkbox-wrapper.ivu-checkbox-default {
 position: absolute;
 top: 18px;
 }
+
+
+.ivu-select{
+  margin-top: 22px;
+  margin-left: 58px;
+}
+
+.ivu-input-wrapper{
+  /* margin-top: 22px; */
+  margin-left: 58px;
+}
+.ivu-select-dropdown-list{
+  text-align: left
+}
+
+

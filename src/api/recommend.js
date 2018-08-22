@@ -25,8 +25,6 @@ export function getDiscList () {
     url = 'http://127.0.0.1:3000/api/getDiscList'
   }
 
-  console.log(url)
-
   // 需要拼接的数据
   const data = Object.assign({}, commonParams, {
     platform: 'yqq',

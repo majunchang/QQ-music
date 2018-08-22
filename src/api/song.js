@@ -9,7 +9,6 @@ export function getLyric (mid) {
   } else {
     url = 'http://127.0.0.1:3000/api/lyric'
   }
-  console.log(url)
 
   const data = Object.assign({}, commonParams, {
     songmid: mid,

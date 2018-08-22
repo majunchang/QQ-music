@@ -82,20 +82,16 @@ export default {
     },
     getTopMUsicList (rankId) {
       getTopMUsicList(rankId).then((res) => {
-        console.log(res)
         this.songs = this.normalizeSongs(res.songlist)
         this.topListName = res.topinfo.ListName
         this.totalSong = res.total_song_num
         this.brief = res.topinfo.info
         this.avatar = res.topinfo.pic
-        console.log('^&*(')
-        console.log(this.songs)
         this.pageSong = this.songs.slice(0, this.pageNum)
       })
     },
     normalizeSongs (list) {
       let ret = []
-      console.log('list', list)
       list.forEach((musicData, index) => {
         // 对象的解构赋值 等同于 var musicData = item.musicData
         if (musicData.data.songid && musicData.data.albummid) {

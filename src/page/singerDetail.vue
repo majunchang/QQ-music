@@ -80,6 +80,10 @@ export default {
   },
   created () {
     if (!this.$root.selectSinger) {
+      this.$router.push({
+        name: 'recommend',
+        path: '/recommend'
+      })
       this.$router.back()
     } else {
       this.singerId = this.$root.selectSinger.id
@@ -139,8 +143,7 @@ export default {
     maskAdd () {
       let massAddArr = this.massAddArr
       if (massAddArr.length) {
-        this.$root.palyedSongArr = this.removeRepeat(this.$root.palyedSongArr.concat(...massAddArr))
-
+        this.$root.palyedSongArr = this.removeRepeat(massAddArr.concat(...this.$root.palyedSongArr))
         this.$router.push({
           paht: '/player',
           name: 'player'
@@ -152,7 +155,7 @@ export default {
     playAll () {
       // 合并数组的两种方法
       // this.$root.palyedSongArr = this.$root.palyedSongArr.concat(...this.pageSong)
-      Array.prototype.push.apply(this.$root.palyedSongArr, this.pageSong)
+      Array.prototype.unshift.apply(this.$root.palyedSongArr, this.pageSong)
       this.$root.palyedSongArr = this.removeRepeat(this.$root.palyedSongArr)
       this.$router.push({
         paht: '/player',
@@ -213,8 +216,8 @@ export default {
   float: left;
 }
 .sd-left img{
-  width: 250px;
-  height: 250px;
+  max-width: 250px;
+  max-height: 250px;
   border-radius: 50%;
   border-style: none;
 }

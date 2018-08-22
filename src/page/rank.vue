@@ -34,10 +34,7 @@ export default {
   methods: {
     getTopList () {
       getTopList().then((res) => {
-        console.log(res)
         this.rankArr = res.data.topList
-        console.log('打印一下')
-        console.log(this.rankArr)
       })
     },
     getTopMUsicList (id) {
