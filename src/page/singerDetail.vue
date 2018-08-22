@@ -1,6 +1,7 @@
 <template>
-    <div class="singerDetail-box">
-     
+<keep-alive>
+ <div class="singerDetail-box">
+
         <div class="singerDetail">
            <ReturnBack @returnBackprop = 'returnBack'></ReturnBack>
             <div class="singerDetail-singerInfo">
@@ -18,19 +19,28 @@
             </div>
             <div class="singerDetail-list">
                   <h1> 单曲&nbsp;{{totalSong}}</h1>
+                  <Button type="success" size='large' @click='maskAdd' style="marginRight:15px">批量增加</Button>
+                  <Button type="success" size='large' @click='playAll'>播放本页全部</Button>
                   <ul class='songlist_header'>
                     <li class="songlist_header_li">
                       <div class="li-index"></div>
+                       <Checkbox style='display:none'></Checkbox>
                       <div class="header-song">歌曲</div>
                       <div class="header-album">专辑</div>
                       <div class="header-duration">时长</div>
+                      <div class="header-duration">操作</div>
                     </li>
                     <div class="songlist_table">
-                       <li v-for="(item,index) in pageSong"  @click='selectSong(item)' :key='index' :class="[index%2===0?'li-even':'li-odd']">
+                       <li v-for="(item,index) in pageSong"   :key='index' :class="[index%2===0?'li-even':'li-odd']">
+                     
                       <div class="li-index">{{item.index}}</div>
+                       <Checkbox v-model="item.check" @click.stop.native="checkBoxSong(item)"></Checkbox>
                       <div class="header-song">{{item.name}}</div>
                       <div class="header-album">{{item.album}}</div>
                       <div class="header-duration">{{item.duration}}</div>
+                      <div class="header-duration  playIcon" @click='selectSong(item)'>
+                        <i class="iconfont icon-play1"></i>
+                      </div>
                     </li>
                     </div>
                   </ul>
@@ -39,19 +49,21 @@
         </div>
     
     </div>
+</keep-alive>
+   
 </template>
 
 <script>
 import { getSingerDetail } from '../api/singer.js'
 import { createSong } from '../utils/song.js'
 import ReturnBack from '../components/returnBack'
+import './iview.css'
 
 export default {
   name: 'HelloWorld',
 
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
       singerId: '',
       songs: [],
       bgImage: '',
@@ -59,7 +71,8 @@ export default {
       singerName: '',
       totalSong: '',
       pageSong: [],
-      pageNum: 10
+      pageNum: 10,
+      massAddArr: []
     }
   },
   components: {
@@ -96,17 +109,66 @@ export default {
         let { musicData } = item
         if (musicData.songid && musicData.albummid) {
           musicData.index = item.index
+          musicData.check = false
           ret.push(createSong(musicData))
         }
       })
       return ret
     },
     pageChange (current) {
-      let startNum = (current - 1) * this.pageNum - 1
+      let startNum = (current - 1) * this.pageNum
       if (current === 1) {
         startNum = 0
       }
       this.pageSong = this.songs.slice(startNum, this.pageNum + startNum)
+    },
+    checkBoxSong (item) {
+      this.$nextTick(() => {
+        let massAddArr = this.massAddArr
+        if (item.check) {
+          massAddArr.push(item)
+        } else {
+          let findIndex = massAddArr.findIndex((value, index) => {
+            return value.name === item.name
+          })
+          massAddArr.splice(findIndex, 1)
+        }
+        this.massAddArr = massAddArr
+      })
+    },
+    maskAdd () {
+      let massAddArr = this.massAddArr
+      if (massAddArr.length) {
+        this.$root.palyedSongArr = this.removeRepeat(this.$root.palyedSongArr.concat(...massAddArr))
+
+        this.$router.push({
+          paht: '/player',
+          name: 'player'
+        })
+      } else {
+        this.$Message.warning('并未选择任何歌曲!')
+      }
+    },
+    playAll () {
+      // 合并数组的两种方法
+      // this.$root.palyedSongArr = this.$root.palyedSongArr.concat(...this.pageSong)
+      Array.prototype.push.apply(this.$root.palyedSongArr, this.pageSong)
+      this.$root.palyedSongArr = this.removeRepeat(this.$root.palyedSongArr)
+      this.$router.push({
+        paht: '/player',
+        name: 'player'
+      })
+    },
+    removeRepeat (arr) {
+      let result = []
+      let obj = { }
+      arr.forEach((item, index) => {
+        if (!obj[item.name]) {
+          obj[item.name] = 1
+          result.push(item)
+        }
+      })
+      return result
     },
     selectSong (item) {
       this.$root.selectSong = item
@@ -122,10 +184,8 @@ export default {
         songArr.splice(findIndex, 1)
       }
       songArr.unshift(item)
-      if (songArr.length > 8) {
-        songArr.pop()
-      }
-      // 跳转到播放音乐页面
+      // 跳转到播放音乐页面  打开新窗口
+
       this.$router.push({
         paht: '/player',
         name: 'player'
@@ -204,8 +264,8 @@ span.totalSong {
 .songlist_table{
   margin-bottom: 30px;
 }
-.songlist_table  li:hover{
-   color: #31c27c;
+.songlist_table  li:hover .playIcon {
+ color: #31c27c;  
 }
 .songlist_header_li{
 background-color: #fbfbfd;
@@ -217,6 +277,9 @@ color: #999;
     line-height: 50px;
     font-size: 14px;
     font-weight: 500;
+}
+.songlist_header_li .header-song{
+  padding-left: 40px;
 }
 .header-song{
   text-align: left;
@@ -248,4 +311,6 @@ ul.ivu-page{
   margin-bottom: 50px;
   text-align: center;
 }
+
+
 </style>

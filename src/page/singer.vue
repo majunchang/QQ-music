@@ -106,12 +106,9 @@ export default {
     },
     getSingerList () {
       getSingerList().then((res) => {
-        console.log('获取歌手列表')
-        console.log(res)
         this.singer = this.normalizeSinger(res.data.list)
         this.charArr = charArr
         this.singerInfo = this.singer['热门']
-        console.log(this.singerInfo)
       })
     },
     normalizeSinger (list) {

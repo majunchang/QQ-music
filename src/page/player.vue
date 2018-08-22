@@ -7,9 +7,11 @@
             <div class="background">
                 <img :src="selectSong.image" alt="">
             </div>
+               <Button type="default" size='large' @click='emptyList' style="marginRight:15px">清空播放列表</Button>
+                <Button type="success" size='large' @click='changeMode'> {{ordermode ?'顺序播放' :'单曲循环'}}</Button>
             <div class="palyer-mainCon">
-                <div class="player-left">
-                    <ul class='player-list'>
+                <div class="player-left ">
+                    <ul class='player-list nui-scroll'>
                         <li class="songlist_player_li">
                             <div class="li-index"></div>
                             <div class="player-song">歌曲</div>
@@ -76,9 +78,10 @@
                     </div>
                 </div>
                 <div class="other-part">
+                    
+                    <!-- <i class="iconfont icon-love"></i>
                     <i class="iconfont icon-love"></i>
-                    <i class="iconfont icon-love"></i>
-                    <i class="iconfont icon-love"></i>
+                    <i class="iconfont icon-love"></i> -->
                 </div>
                 <audio :src="selectSong.url" ref='audio' @play='ready' @error='error' @timeupdate='timeupdate' @ended='end'></audio>
             </div>
@@ -107,7 +110,9 @@ export default {
       // 歌词所需数据
       playingLyric: '',
       currentLyric: '',
-      currentLineNum: 0
+      currentLineNum: 0,
+      // 播放模式
+      ordermode: true
     }
   },
   components: {
@@ -122,7 +127,7 @@ export default {
     }
   },
   mounted () {
-    this.selectSong = this.$root.selectSong
+    this.selectSong = this.$root.palyedSongArr[0]
     this.palyedSongArr = this.$root.palyedSongArr
     this.playing = true
     const audio = this.$refs.audio
@@ -139,6 +144,18 @@ export default {
     }
   },
   methods: {
+    changeMode () {
+      this.ordermode = !this.ordermode
+    },
+    emptyList () {
+      this.playing = false
+      this.currentLyric.stop()
+      this.currentTime = 0
+      this.$refs.audio.pause()
+      this.$root.palyedSongArr = []
+      this.selectSong = {}
+      this.$router.back()
+    },
     returnBack () {
       this.$router.back()
     },
@@ -265,6 +282,10 @@ export default {
         this.$Message.warning('当前列表仅有一条歌曲')
         return
       }
+      if (!this.ordermode) {
+        this.$Message.warning('单曲循环模式，不支持上一曲')
+        return
+      }
       //  首先求出 当前这首歌的索引  然后去上一个索引
       let currentIndex = this.palyedSongArr.findIndex((item, index) => {
         return item.name === this.selectSong.name
@@ -286,10 +307,18 @@ export default {
         this.$Message.warning('当前列表仅有一条歌曲')
         return
       }
+
+      let nextIndex
       let currentIndex = this.palyedSongArr.findIndex((item, index) => {
         return item.name === this.selectSong.name
       })
-      let nextIndex = currentIndex === this.palyedSongArr.length - 1 ? 0 : currentIndex + 1
+
+      if (!this.ordermode) {
+        nextIndex = currentIndex
+      } else {
+        nextIndex = currentIndex === this.palyedSongArr.length - 1 ? 0 : currentIndex + 1
+      }
+
       this.selectSong = this.palyedSongArr[nextIndex]
       this.playIndex = nextIndex
       this.currentLyric.stop()
@@ -323,8 +352,6 @@ export default {
     error (err) {
       this.songReady = true
       console.log(err)
-      console.log('歌曲报错了')
-      console.log(this.$refs.audio.error)
     }
   }
 }
@@ -558,4 +585,55 @@ p.current{
 .lyricBox{
     transition: all 0.5s;
 }
+
+
+.nui-scroll{
+    margin-left: 100px;/*为了咱们看着好看就向右移动一点*//*给个边框看着更舒服*/
+    width: 100%;/*设置宽*/
+    height: 100px;
+    overflow-y: auto;/*当内容溢出时显示滚动条*/
+    min-height: 328px;/*设置高*/
+     
+}
+.player-list{
+ 
+ height: 500px;
+   
+}
+.nui-scroll::-webkit-scrollbar-track {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+    /* background-color: white; */
+}
+/*鼠标悬浮在滚动条上的主干部分*/
+.nui-scroll::-webkit-scrollbar-track:hover {
+    /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.4); */
+    /* background-color: rgba(0,0,0,.1); */
+}
+/*正常情况下滑块的样式*/
+.nui-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.1);
+     /* background-color: #ccc; */
+    border-radius: 10px;
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1);
+}
+/*鼠标悬浮在该类指向的控件上时滑块的样式*/
+.nui-scroll:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.2);
+    border-radius: 10px;
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1);
+}
+/*鼠标悬浮在滑块上时滑块的样式*/
+.nui-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0,0,0,.4);
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1);
+}
+.nui-scroll::-webkit-scrollbar {
+    width: 8px;
+    max-height: 20px;
+}
+
+
+
+
 </style>

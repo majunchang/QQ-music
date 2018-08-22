@@ -40,10 +40,8 @@
 import { getRecommend, getDiscList } from '../api/recommend.js'
 
 export default {
-  name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
       recommend: [],
       comHeight: '',
       songList: []

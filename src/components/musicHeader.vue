@@ -50,7 +50,6 @@ export default {
         name: routerArr[index],
         path: `/${routerArr[index]}`
       })
-      console.log(index)
     }
   }
 }

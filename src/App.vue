@@ -46,4 +46,5 @@ body,html{
   color: #2c3e50;
   min-width: 1250px;
 }
+
 </style>

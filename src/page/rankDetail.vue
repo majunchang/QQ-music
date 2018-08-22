@@ -9,7 +9,7 @@
                 </div>
                 <div class="sd-right">
                     <h1>{{topListName}}</h1>
-                    <p class="brife">个人简介:&nbsp;......</p>
+                    <p class="brife">歌单简介:&nbsp;......</p>
                     <p class='single'>单曲&nbsp;
                       <span class="totalSong">
                       {{totalSong}}
@@ -88,15 +88,18 @@ export default {
         this.totalSong = res.total_song_num
         this.brief = res.topinfo.info
         this.avatar = res.topinfo.pic
+        console.log('^&*(')
+        console.log(this.songs)
         this.pageSong = this.songs.slice(0, this.pageNum)
       })
     },
     normalizeSongs (list) {
       let ret = []
+      console.log('list', list)
       list.forEach((musicData, index) => {
         // 对象的解构赋值 等同于 var musicData = item.musicData
         if (musicData.data.songid && musicData.data.albummid) {
-          musicData.index = index
+          musicData.data.index = index + 1
           ret.push(createSong(musicData.data))
         }
       })
@@ -123,9 +126,10 @@ export default {
         songArr.splice(findIndex, 1)
       }
       songArr.unshift(item)
-      if (songArr.length > 8) {
-        songArr.pop()
-      }
+      //  去掉长度限制
+      // if (songArr.length > 8) {
+      //   songArr.pop()
+      // }
       // 跳转到播放音乐页面
       this.$router.push({
         paht: '/player',

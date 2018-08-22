@@ -1,0 +1,7 @@
+label.ivu-checkbox-wrapper.ivu-checkbox-default {
+  position: relative;
+}
+.ivu-checkbox{
+position: absolute;
+top: 18px;
+}
