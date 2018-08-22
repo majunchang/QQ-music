@@ -556,14 +556,14 @@ i.iconfont {
 .player-right {
     width: 20%;
     float: right;
-    height: 490px;
+    height: 600px;
 }
 
 
 .lyric-wrapper{
     margin-top: 30px;
     overflow: hidden;
-    height: 200px;
+    height: 300px;
 }
 
 p.player-right-info {
