@@ -232,7 +232,10 @@ export default {
       }
       this.selectSong = item
       this.playIndex = index
-      this.currentLyric.stop()
+      if (this.currentLyric) {
+        this.currentLyric.stop()
+      }
+
       this.currentTime = 0
       this.$nextTick(() => {
         this.playing = true
@@ -293,7 +296,10 @@ export default {
       let prevIndex = currentIndex === 0 ? this.palyedSongArr.length - 1 : currentIndex - 1
       this.selectSong = this.palyedSongArr[prevIndex]
       this.playIndex = prevIndex
-      this.currentLyric.stop()
+      if (this.currentLyric) {
+        this.currentLyric.stop()
+      }
+
       this.currentTime = 0
       this.$nextTick(() => {
         this.playing = true
@@ -321,7 +327,10 @@ export default {
 
       this.selectSong = this.palyedSongArr[nextIndex]
       this.playIndex = nextIndex
-      this.currentLyric.stop()
+      if (this.currentLyric) {
+        this.currentLyric.stop()
+      }
+
       this.currentTime = 0
       this.$nextTick(() => {
         this.playing = true

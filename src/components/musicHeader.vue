@@ -123,6 +123,7 @@ export default {
     line-height: 80px;
     margin-left: 180px;
     text-align: left;
+    min-width: 300px;
 }
 
 .tab-span {
