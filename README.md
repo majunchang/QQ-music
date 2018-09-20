@@ -4,9 +4,21 @@
 
 ### 项目预览图
 
-> 分为首页、歌手列表页、歌手详情页、排行榜。排行榜详情页以及播放器页面
+> 分为首页、歌手列表页、歌手详情页、排行榜。排行榜详情页以及播放器页面，排行榜与歌手页基本一致 不做赘述
 
-![image](http://upload-images.jianshu.io/upload_images/5703029-c6ad2ac567d54384.jpg?imageMogr2/auto-orient/strip)
+##### 首页
+![](http://oneg19f80.bkt.clouddn.com/18-9-20/26564203.jpg)
+
+##### 歌手列表页
+![](http://oneg19f80.bkt.clouddn.com/18-9-20/37000104.jpg)
+##### 歌手详情页
+
+![](http://oneg19f80.bkt.clouddn.com/18-9-20/43740308.jpg)
+##### 歌手搜索功能
+![](http://oneg19f80.bkt.clouddn.com/18-9-20/59021103.jpg)
+
+##### 播放器页面
+![](http://oneg19f80.bkt.clouddn.com/18-9-20/68068332.jpg)
 
 
 
@@ -138,9 +150,9 @@ app.listen(3000, () => {
 
 > 官网需要翻墙 下载需要翻墙 （唉......  在这里贴一下nw的官网首页和下载截图）
 
-![image](http://upload-images.jianshu.io/upload_images/5703029-f7ef2742e491ace1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](http://oneg19f80.bkt.clouddn.com/18-8-16/65827693.jpg)
 
-![image](http://upload-images.jianshu.io/upload_images/5703029-76bb22446f7fd85f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](http://oneg19f80.bkt.clouddn.com/18-8-16/20581218.jpg)
 
 > Github上nw.js有两万多Star和接近3000的Fork，说明它已经相当成熟。 并且在Github项目的最后面，显示Intel有赞助这个项目，看起来很牛的样子
 
@@ -155,7 +167,7 @@ app.listen(3000, () => {
 
 > nw.js就是使HTML, CSS, JavaScript写的原本在浏览器上运行的程序，也可以在桌面端运行。
 
-![image](http://upload-images.jianshu.io/upload_images/5703029-2aae6629a9ddde5e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](http://oneg19f80.bkt.clouddn.com/18-8-15/22737169.jpg)
 
 ##### nw的安装与使用
 
@@ -169,8 +181,8 @@ app.listen(3000, () => {
 效果图：
 ```
 
-![image](http://upload-images.jianshu.io/upload_images/5703029-e49ea59197cbd515.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![image](http://upload-images.jianshu.io/upload_images/5703029-ee2d025eb3469466.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](http://oneg19f80.bkt.clouddn.com/18-8-15/49091205.jpg)
+![](http://oneg19f80.bkt.clouddn.com/18-8-15/87487091.jpg)
 
 1. 使用命令行安装 （命令行下载比较慢 所以不是特别建议）
 
@@ -234,7 +246,7 @@ nwjs——你值得拥有！
 
 https://electronjs.org/
 
-![image](http://upload-images.jianshu.io/upload_images/5703029-13cb3adb08dcc374.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](http://oneg19f80.bkt.clouddn.com/18-8-16/22321807.jpg)
 
 > 简介
 
@@ -257,9 +269,9 @@ $ npm install && npm start
 
 > 项目截图  
 
-![image](http://upload-images.jianshu.io/upload_images/5703029-c79d6ceba0a97033.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](http://oneg19f80.bkt.clouddn.com/18-8-16/89054292.jpg)
 
-![image](http://upload-images.jianshu.io/upload_images/5703029-e602181de02f9076.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](http://oneg19f80.bkt.clouddn.com/18-8-16/12368460.jpg)
 
 > electron的安装与打包工具的安装
 
