@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {commonParams, options} from '../config'
+import { commonParams, options } from '../config'
 import jsonp from '../utils/jsonp'
 
 export function getRecommend () {
