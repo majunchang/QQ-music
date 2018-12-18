@@ -1,10 +1,12 @@
 .DS_Store
 node_modules/
 /dist/
+/dist1/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 /QQMusic-darwin-x64/
+/qq-music-darwin-x64/
 
 # Editor directories and files
 .idea

@@ -1,11 +1,11 @@
 <template>
-  <div >
+  <div>
     <h1>这是rankdetail页面</h1>
   </div>
 </template>
 
 <script>
-import {getTopMUsicList} from '../api/rank.js'
+import { getTopMUsicList } from '../api/rank.js';
 export default {
   name: 'HelloWorld',
   data () {
@@ -22,7 +22,7 @@ export default {
       if (!Rankid) {
         this.$router.goBack()
       }
-      getTopMUsicList(Rankid).then((res) => {
+      getTopMUsicList(Rankid).then(res => {
         console.log(res)
       })
     }
@@ -32,5 +32,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 </style>
