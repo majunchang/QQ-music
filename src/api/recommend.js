@@ -1,8 +1,11 @@
 import axios from 'axios'
-import { commonParams, options } from '../config'
+import {
+  commonParams,
+  options
+} from '../config'
 import jsonp from '../utils/jsonp'
 
-export function getRecommend () {
+export function getRecommend() {
   const url = 'https://c.y.qq.com/musichall/fcgi-bin/fcg_yqqhomepagerecommend.fcg'
 
   const paramData = Object.assign({}, commonParams, {
@@ -16,7 +19,7 @@ export function getRecommend () {
 
 //  分类歌单数据
 
-export function getDiscList () {
+export function getDiscList() {
   let href = window.location.href
   let url
   if (href.includes('localhost') || href.includes('127.0.0.1')) {
@@ -40,8 +43,5 @@ export function getDiscList () {
 
   return axios.get(url, {
     params: data
-  }).then((res) => {
-    // console.log(res);
-    return Promise.resolve(res.data)
   })
 }

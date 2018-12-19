@@ -42,34 +42,37 @@
 </template>
 
 <script>
-import { getRecommend, getDiscList } from '../api/recommend.js';
+import { getDiscListCache, test } from "../api/promiseCache.js";
+import { getRecommend, getDiscList } from "../api/recommend.js";
 
 export default {
-  data () {
+  data() {
     return {
       recommend: [],
-      comHeight: '',
+      comHeight: "",
       songList: []
-    }
+    };
   },
   computed: {},
-  created () {
-    this.comHeight = '180';
+  created() {
+    this.comHeight = "180";
   },
-  mounted () {
+  mounted() {
     getRecommend().then(res => {
-      this.recommend = res.data.slider
-    })
-    this.getcateList()
+      this.recommend = res.data.slider;
+    });
+    this.getcateList();
   },
   methods: {
-    getcateList () {
-      getDiscList().then(res => {
-        this.songList = res.data.list
-      })
+    getcateList() {
+      getDiscListCache.then(res => {
+        console.log(test);
+        console.log(res);
+        this.songList = res.data.data.list;
+      });
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
