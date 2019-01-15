@@ -12,10 +12,19 @@
           height="auto"
           class="Carousel-recommend"
         >
-          <CarouselItem v-for="(item,index) in recommend" :key="index">
+          <CarouselItem
+            v-for="(item,index) in recommend"
+            :key="index"
+          >
             <div class="img-box">
-              <img :src="item.picUrl" alt>
-              <img :src="item.picUrl" alt>
+              <img
+                :src="item.picUrl"
+                alt
+              >
+              <img
+                :src="item.picUrl"
+                alt
+              >
             </div>
           </CarouselItem>
         </Carousel>
@@ -23,17 +32,23 @@
       <!-- 分类歌单组件 -->
       <div class="cate-songlist">
         <h1>全部歌单</h1>
-        <div class="songList-single" v-for="(item,index) in songList" :key="index">
+        <div
+          class="songList-single"
+          v-for="(item,index) in songList"
+          :key="index"
+        >
           <div class="songlist-box">
             <div class="imgContainer">
-              <img v-lazy="item.imgurl" alt>
+              <img
+                v-lazy="item.imgurl"
+                alt
+              >
             </div>
-
-            <div class="songlist-single-info">
-              <p class="info-p">{{item.dissname}}</p>
-              <p>{{item.creator.name}}</p>
-              <p>播放量： {{(item.listennum+'').slice(0,2)}} 万</p>
-            </div>
+          </div>
+          <div class="songlist-single-info">
+            <p class="info-p">{{item.dissname}}</p>
+            <p>{{item.creator.name}}</p>
+            <p>播放量： {{(item.listennum+'').slice(0,2)}} 万</p>
           </div>
         </div>
       </div>
@@ -42,37 +57,37 @@
 </template>
 
 <script>
-import { getDiscListCache, test } from "../api/promiseCache.js";
-import { getRecommend, getDiscList } from "../api/recommend.js";
+import { getDiscListCache, test } from '../api/promiseCache.js';
+import { getRecommend, getDiscList } from '../api/recommend.js';
 
 export default {
-  data() {
+  data () {
     return {
       recommend: [],
-      comHeight: "",
+      comHeight: '',
       songList: []
-    };
+    }
   },
   computed: {},
-  created() {
-    this.comHeight = "180";
+  created () {
+    this.comHeight = '180';
   },
-  mounted() {
+  mounted () {
     getRecommend().then(res => {
-      this.recommend = res.data.slider;
-    });
-    this.getcateList();
+      this.recommend = res.data.slider
+    })
+    this.getcateList()
   },
   methods: {
-    getcateList() {
+    getcateList () {
       getDiscListCache.then(res => {
-        console.log(test);
-        console.log(res);
-        this.songList = res.data.data.list;
-      });
+        console.log(test)
+        console.log(res)
+        this.songList = res.data.data.list
+      })
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -93,13 +108,13 @@ h1 {
 }
 
 .songlistRecommend {
-  display: flex;
+  /* display: flex; */
   text-decoration: none;
   margin-top: 50px;
 }
 
 .songlist-single {
-  flex: 1;
+  /* flex: 1; */
   width: 100%;
   display: block;
   text-decoration: none;
@@ -109,7 +124,12 @@ h1 {
   width: 100%;
   display: block;
 }
-
+.songlist-box {
+  width: 100%;
+  padding-bottom: 100%;
+  height: 0;
+  position: relative;
+}
 .img-box {
   /* text-align: center */
 }
@@ -141,29 +161,34 @@ h1 {
 }
 
 .songList-single {
-  flex: 1;
+  /* flex: 1; */
   margin: 10px 10px 20px;
-  width: 224px;
-  justify-content: space-between;
+  width: 16%;
   display: inline-block;
   cursor: pointer;
 }
 
 .imgContainer {
   overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: absolute;
 }
 
 .songList-single img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
-  transform: scale(1, 1);
-  transition: all 0.5s;
-  display: block;
+  margin: auto;
   /* img是一种类似text的元素，在结束的时候，会在末尾加上一个空白符，所以就会多出3px */
 }
 
 .songList-single img:hover {
-  /* transform: scale(1.4) */
-  /* width: 120%; */
+  transform: scale(1.4);
+  width: 120%;
   transform: scale(1.15, 1.15);
   transition: all 0.5s;
 }
